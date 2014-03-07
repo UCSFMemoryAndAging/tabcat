@@ -1,0 +1,68 @@
+
+body {
+    background-color: #ffffff;
+    color: #000000;
+    /* Helvetica is the "everything is okay" font */
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+}
+
+/* debug mode */
+#task div {
+    border: 1px solid;
+}
+
+#rectangle div {
+    font-size: 2em;
+}
+
+#stimuli {
+    position: relative;
+    height: 85%;
+    text-align: center;
+    background-color: #eeeeee;
+}
+
+#stimuli p {
+    margin: 1em;
+    font-size: 1em;
+}
+
+#stimuli img.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+/* offset by half the image dimensions (8px by 8px) */
+#stimuli img.fixation {
+  margin-top: -8px;
+  margin-left: -8px;
+}
+
+#stimuli img.aboveFixation {
+  margin-top: -300px;
+  margin-left: -128px;
+}
+
+#stimuli img.belowFixation {
+  margin-top: 44px;
+  margin-left: -128px;
+}
+
+#responseButtons {
+    height: 15%;
+    text-align: center;
+    width: 100%;
+    background-color: #cccccc;    
+}
+
+#responseButtons button {
+    width: 20%;
+    font-size: 3em;
+    border-radius: 0.5em;
+    margin: 0;
+    padding: 0.4em;
+}
+
+
