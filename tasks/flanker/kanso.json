@@ -1,0 +1,28 @@
+{
+    "name": "flanker",
+    "version": "0.5.0",
+    "description": "Flanker",
+    "attachments": [
+        "css/flanker.css",
+        "img/fixation.bmp",
+        "img/flanker.png",
+        "img/lllll.bmp",
+        "img/llrll.bmp",
+        "img/rrlrr.bmp",
+        "img/rrrrr.bmp",
+        "js/flanker.js",
+        "flanker.html"
+    ],
+    "dependencies": {
+        "attachments": null
+    },
+    "tabcat": {
+        "tasks": {
+            "flanker": {
+                "description": "Flanker",
+                "icon": "img/flanker.png",
+                "start": "flanker.html"
+            }
+        }
+    }
+}
