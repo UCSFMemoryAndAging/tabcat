@@ -12,7 +12,11 @@
 # 5) Records response
 
 
-
+TEST_TRIALS = [
+  {'congruent':0, 'arrows':'llrll', 'upDown':'up'  , 'corrAns':'right'},
+  {'congruent':1, 'arrows':'lllll', 'upDown':'down', 'corrAns':'left' },
+  {'congruent':2, 'arrows':'rrlrr', 'upDown':'up'  , 'corrAns':'left' },
+]
 
 DEFAULT_TRIALS = [
   {'congruent':0, 'arrows':'llrll', 'upDown':'up'  , 'corrAns':'right'},
@@ -49,10 +53,16 @@ ASPECT_RATIO = 4/3
 
 # INITIALIZATION
 @initTask = ->
-  TabCAT.Task.start(trackViewport: true)
 
-  TabCAT.UI.turnOffBounce()
-  TabCAT.UI.enableFastClick()
+  test = new TrialHandler(TEST_TRIALS,3)
+  alert test.getSequence()
+  for i in [0...9]
+    alert JSON.stringify test.next()
+
+  #TabCAT.Task.start(trackViewport: true)
+
+  #TabCAT.UI.turnOffBounce()
+  #TabCAT.UI.enableFastClick()
 
   $(->
     $rectangle = $('#rectangle')
@@ -62,6 +72,41 @@ ASPECT_RATIO = 4/3
     
     showStartScreen()
   )
+  
+  
+TrialHandler = class
+
+  constructor: (@trialList, @numReps = 1) ->
+    @numReps = if @numReps < 0 then 1 else @numReps
+    @trialListLength = @trialList.length
+    @currentRepNum = 0
+    @currentTrialNum = -1
+    @finished = false
+    @sequenceIndices = @createSequence()
+
+    
+  createSequence: ->
+    trialListIndices = _.range @trialListLength
+    rep = @numReps + 1
+    @sequenceIndices = (_.shuffle trialListIndices while rep -= 1)
+
+  getSequence: ->
+    @sequenceIndices
+
+  next: ->
+    @currentTrialNum += 1
+    if @currentTrialNum is @trialListLength
+      @currentTrialNum = 0
+      @currentRepNum += 1
+    if @currentRepNum >= @numReps
+      @finished = true
+      
+    if @finished
+      false
+    else
+      index = @sequenceIndices[@currentRepNum][@currentTrialNum]
+      @trialList[index]
+
   
 # INSTRUCTIONS
 showStartScreen = ->
