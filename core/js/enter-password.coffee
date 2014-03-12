@@ -24,6 +24,10 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
+SANDBOX_USER = 's@ndbox'
+SANDBOX_PASSWORD = 's@ndbox'
+
+
 submitEnterPasswordForm = (event) ->
   event.preventDefault()
   form = $(event.target)
@@ -59,6 +63,10 @@ submitEnterPasswordForm = (event) ->
 
     $loginForm = $('#loginForm')
     $loginForm.find('input[name=email]').val(user)
+
+    if TabCAT.UI.inSandbox() and user is SANDBOX_USER
+      $loginForm.find('input[name=password]').val(SANDBOX_PASSWORD)
+
     $loginForm.on('submit', submitEnterPasswordForm)
     $loginForm.find('button').removeAttr('disabled')
   )

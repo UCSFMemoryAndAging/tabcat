@@ -85,7 +85,10 @@ submitLoginForm = (event) ->
     else if TabCAT.UI.readHashJSON().loggedOut
       $('#message').text('Logged out')
     else
-      $('#message').text('Please log in with your email and password')
+      if TabCAT.UI.inSandbox()
+        $('#message').text('Welcome to the sandbox. Hit "Log In" to start')
+      else
+        $('#message').text('Please log in with your email and password')
 
     $loginForm = $('#loginForm')
 
