@@ -41,6 +41,11 @@ PRACTICE_FEEDBACK_DISPLAY_DURATION = 2000
 # 6 out of 8 in 3 practice blocks then end the task.
 PRACTICE_MAX_STREAK = 6
 
+# Displays fixation stimuli for at least 1 second and
+# no more than 3 seconds (random)
+FIXATION_PERIOD_MIN = 1000
+FIXATION_PERIOD_MAX = 3000
+
 # pre trial delay of 0.2 seconds in real testing
 PRE_TRIAL_DELAY = 200
 
@@ -51,44 +56,20 @@ STIMULI_DISPLAY_DURATION = 4000
 # main div's aspect ratio (pretend we're on an iPad)
 ASPECT_RATIO = 4/3
 
-# INITIALIZATION
-@initTask = ->
-
-  test = new TrialHandler(TEST_TRIALS,3)
-  alert test.getSequence()
-  for i in [0...9]
-    alert JSON.stringify test.next()
-
-  #TabCAT.Task.start(trackViewport: true)
-
-  #TabCAT.UI.turnOffBounce()
-  #TabCAT.UI.enableFastClick()
-
-  $(->
-    $rectangle = $('#rectangle')
-
-    TabCAT.UI.fixAspectRatio($rectangle, ASPECT_RATIO)
-    TabCAT.UI.linkEmToPercentOfHeight($rectangle)
-    
-    showStartScreen()
-  )
-  
-  
 TrialHandler = class
 
-  constructor: (@trialList, @numReps = 1) ->
-    @numReps = if @numReps < 0 then 1 else @numReps
+  constructor: (@numReps = 1, @trialList = DEFAULT_TRIALS) ->
+    @numReps = Math.max(1, @numReps)
     @trialListLength = @trialList.length
     @currentRepNum = 0
     @currentTrialNum = -1
+    @currentTrial = {}
     @finished = false
     @sequenceIndices = @createSequence()
-
     
   createSequence: ->
     trialListIndices = _.range @trialListLength
-    rep = @numReps + 1
-    @sequenceIndices = (_.shuffle trialListIndices while rep -= 1)
+    (_.shuffle trialListIndices for i in [0...@numReps])
 
   getSequence: ->
     @sequenceIndices
@@ -100,31 +81,59 @@ TrialHandler = class
       @currentRepNum += 1
     if @currentRepNum >= @numReps
       @finished = true
-      
+
     if @finished
+      @currentTrial = {}
       false
     else
       index = @sequenceIndices[@currentRepNum][@currentTrialNum]
-      @trialList[index]
+      @currentTrial = @trialList[index]
 
+
+Block = class
+
+  constructor: (@name) ->
+    @continueBlock = true
+    @beforeBlockDelay = 0
+    @afterBlockDelay = 0
+
+  discontinueBlock: ->
+    @continueBlock = false
+
+  doBeforeBlock: ->
+    return
   
-# INSTRUCTIONS
-showStartScreen = ->
-
-  $intro = $('#stimuli')
-  $beginButton = $('#beginButton')
-
-  $beginButton.on('click', ->
-    $intro.children().hide()
-    hideBeginButton()
-    showArrow('rrlrr','down')
-    showArrow('rrlrr','up')
-    $('#fixation').show()
-    showResponseButtons()
-  )
+  doBlock: ->
+    throw new Error("not defined")
   
-  $intro.show()
-  showBeginButton()
+  doAfterBlock: ->
+    return
+      
+  runBlock: ->
+    TabCAT.UI.wait(@beforeBlockDelay).then(->
+      doBeforeBlock() if @continueBlock
+      doBlock() if @continueBlock
+      doAfterBlock() if @continueBlock
+      TabCAT.UI.wait(@afterBlockDelay).then(->
+        return
+      ) if @continueBlock
+    )
+      
+@FlankerBlock = class extends Block
+
+  constructor: (@name, @numReps = 1, @trialList = DEFAULT_TRIALS) ->
+    super(@name)
+    @trials = new TrialHandler(1)
+    
+  doBlock: ->
+      
+
+trials = new TrialHandler(1)
+
+clearStimuli = ->
+  $stimuli = $('#stimuli')
+  $stimuli.children().hide()
+
 
 showBeginButton = ->
   $('#beginButton').show()
@@ -142,5 +151,71 @@ showArrow = (arrows, upDown) ->
   $arrow = $('#'+arrows+'_'+upDown)
   $arrow.show()
 
+showNextTrial = ->
+  clearStimuli()
+  trial = trials.next()
+  $arrow = $('#' + trial.arrows + '_' + trial.upDown)
+  $('#fixation').show()
+  
+  TabCAT.UI.wait(_.random(FIXATION_PERIOD_MIN, FIXATION_PERIOD_MAX)).then(->
+    $arrow.show()
+  )
+
+showFeedback = (correct) ->
+  msg = if correct then "Correct!" else "Incorrect"
+  $feedback = $('#feedback').text(msg)
+  $feedback.show()
+
+hideFeedback = ->
+  $feedback = $('#feedback')
+  $feedback.hide()
+
+      
+handleResponseTouchStart = (event) ->
+  event.preventDefault()
+  event.stopPropagation()
+  
+  clearStimuli()
+  response = event.target.value.toLowerCase()
+  currentTrial = trials.currentTrial
+  
+  showFeedback(currentTrial.corrAns is response)
+
+  TabCAT.UI.wait(PRACTICE_FEEDBACK_DISPLAY_DURATION).then(->
+    showNextTrial()
+  )
+
+# INSTRUCTIONS
+showStartScreen = ->
+  $intro = $('#stimuli')
+  
+  $beginButton = $('#beginButton')
+  $beginButton.on('click', ->
+    hideBeginButton()
+    showResponseButtons()
+    clearStimuli()
+    showNextTrial()
+  )
+  
+  $responseButtons = $('#leftResponseButton, #rightResponseButton')
+  $responseButtons.on('mousedown touchstart', handleResponseTouchStart)
+  
+  $intro.show()
+  showBeginButton()
 
 
+# INITIALIZATION
+@initTask = ->
+  TabCAT.Task.start(trackViewport: true)
+
+  TabCAT.UI.turnOffBounce()
+  TabCAT.UI.enableFastClick()
+
+  $(->
+    $rectangle = $('#rectangle')
+
+    TabCAT.UI.fixAspectRatio($rectangle, ASPECT_RATIO)
+    TabCAT.UI.linkEmToPercentOfHeight($rectangle)
+    
+    showStartScreen()
+  )

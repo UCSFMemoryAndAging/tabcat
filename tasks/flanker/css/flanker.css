@@ -28,6 +28,19 @@ body {
     font-size: 1em;
 }
 
+/* 'line-height' value is arbitrary; should be equal to 'height' for vertical centering */
+#stimuli div.feedback {
+    position: absolute;
+    left: 0; 
+    right: 0;
+    top: 0; 
+    bottom: 0;
+    margin: auto;
+    line-height: 300px; 
+    height: 300px;
+    z-index: 3;
+}
+
 #stimuli img.center {
   position: absolute;
   top: 50%;
@@ -38,16 +51,21 @@ body {
 #stimuli img.fixation {
   margin-top: -8px;
   margin-left: -8px;
+  z-index: 2;
 }
 
+/* 70px above fixation = -(128 + 70 ) */
 #stimuli img.aboveFixation {
-  margin-top: -300px;
+  margin-top: -198px;
   margin-left: -128px;
+  z-index: 1;
 }
 
+/* 70px below fixation = (128 - 70 ) */
 #stimuli img.belowFixation {
-  margin-top: 44px;
+  margin-top: -58px;
   margin-left: -128px;
+  z-index: 1;
 }
 
 #responseButtons {

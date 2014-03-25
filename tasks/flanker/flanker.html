@@ -14,25 +14,14 @@
       <div id="rectangle">
         <div id="stimuli" style="display:none">
           <p>You will be shown a series of arrows on the screen, pointing to the left or to the right. For example:</p>
-          <img src="img/rrrrr.bmp"/>
+          <img width="100" height="100" src="img/rrrrr.bmp"/>
           <p>or</p>
-          <img src="img/llrll.bmp"/>
+          <img width="100" height="100" src="img/llrll.bmp"/>
           <p>Press the RIGHT button if the CENTER arrow points to the right.</p>
           <p>Press the LEFT button if the CENTER arrow points to the left.</p>
           <p>Try to respond as quickly and accurately as you can.</p>
           <p>Try to keep your attention focused on the cross ("+") at the center of the screen.</p>
           <p>First we'll do a practice trial.</p>
-          <!--
-          <div id="fixation" class="center fixation" style="display:none"><img src="img/fixation.bmp"></div>
-          <div id="lllll_up" class="center aboveFixation" style="display:none"><img src="img/lllll.bmp"></div>
-          <div id="llrll_up" class="center aboveFixation" style="display:none"><img src="img/llrll.bmp"></div>
-          <div id="rrlrr_up" class="center aboveFixation" style="display:none"><img src="img/rrlrr.bmp"></div>
-          <div id="rrrrr_up" class="center aboveFixation" style="display:none"><img src="img/rrrrr.bmp"></div>                  
-          <div id="lllll_down" class="center belowFixation" style="display:none"><img src="img/lllll.bmp"></div>
-          <div id="llrll_down" class="center belowFixation" style="display:none"><img src="img/llrll.bmp"></div>
-          <div id="rrlrr_down" class="center belowFixation" style="display:none"><img src="img/rrlrr.bmp"></div>
-          <div id="rrrrr_down" class="center belowFixation" style="display:none"><img src="img/rrrrr.bmp"></div>
--->
           <img id="fixation" src="img/fixation.bmp" class="center fixation" style="display:none">
           <img id="lllll_up" src="img/lllll.bmp" class="center aboveFixation" style="display:none">
           <img id="llrll_up" src="img/llrll.bmp" class="center aboveFixation" style="display:none">
@@ -42,12 +31,12 @@
           <img id="llrll_down" src="img/llrll.bmp" class="center belowFixation" style="display:none">
           <img id="rrlrr_down" src="img/rrlrr.bmp" class="center belowFixation" style="display:none">
           <img id="rrrrr_down" src="img/rrrrr.bmp" class="center belowFixation" style="display:none">          
-
+		  <div id="feedback" class="feedback" style="display:none"></div>
         </div>
         <div id="responseButtons">
           <button id="beginButton" style="display:none">Begin</button>
-          <button id="leftResponseButton" style="display:none">Left</button>
-          <button id="rightResponseButton" style="display:none">Right</button>
+          <button id="leftResponseButton" value="left" style="display:none">Left</button>
+          <button id="rightResponseButton" value="right" style="display:none">Right</button>
         </div>
 
       </div>
