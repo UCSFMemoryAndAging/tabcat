@@ -30,6 +30,7 @@ DEFAULT_TRIALS = [
 ]
 
 # pre trial delay of 0.4 seconds in practice blocks
+# (time between response and next fixation)
 PRACTICE_PRE_TRIAL_DELAY = 400
 
 # In practice trials, feedback is displayed to subject
@@ -47,6 +48,7 @@ FIXATION_PERIOD_MIN = 1000
 FIXATION_PERIOD_MAX = 3000
 
 # pre trial delay of 0.2 seconds in real testing
+# (time between response and next fixation)
 PRE_TRIAL_DELAY = 200
 
 # trial stimuli is displayed for 4 seconds or until subject
@@ -88,52 +90,33 @@ TrialHandler = class
     else
       index = @sequenceIndices[@currentRepNum][@currentTrialNum]
       @currentTrial = @trialList[index]
-
-
-Block = class
-
-  constructor: (@name) ->
-    @continueBlock = true
-    @beforeBlockDelay = 0
-    @afterBlockDelay = 0
-
-  discontinueBlock: ->
-    @continueBlock = false
-
-  doBeforeBlock: ->
-    return
-  
-  doBlock: ->
-    throw new Error("not defined")
-  
-  doAfterBlock: ->
-    return
-      
-  runBlock: ->
-    TabCAT.UI.wait(@beforeBlockDelay).then(->
-      doBeforeBlock() if @continueBlock
-      doBlock() if @continueBlock
-      doAfterBlock() if @continueBlock
-      TabCAT.UI.wait(@afterBlockDelay).then(->
-        return
-      ) if @continueBlock
-    )
-      
-@FlankerBlock = class extends Block
-
-  constructor: (@name, @numReps = 1, @trialList = DEFAULT_TRIALS) ->
-    super(@name)
-    @trials = new TrialHandler(1)
-    
-  doBlock: ->
       
 
-trials = new TrialHandler(1)
+practiceBlock1 = new TrialHandler(1)
+practiceBlock2 = new TrialHandler(1)
+practiceBlock3 = new TrialHandler(1)
+testingBlock = new TrialHandler(2)
+
+currentBlock = practiceBlock1
+practiceMode = true
+
+preTrialDelay = ->
+  alersdt 'pretrial '
+  if practiceMode
+    TabCAT.UI.wait(PRACTICE_PRE_TRIAL_DELAY).then(-> return)
+  else
+    TabCAT.UI.wait(PRE_TRIAL_DELAY).then(-> return)
+  clearStimuli()
+  trial = currentBlock.next()
+  $arrow = $('#' + trial.arrows + '_' + trial.upDown)
+
+next = ->
+  preTrialDelay()
+  showNextTrial()
 
 clearStimuli = ->
   $stimuli = $('#stimuli')
   $stimuli.children().hide()
-
 
 showBeginButton = ->
   $('#beginButton').show()
@@ -152,9 +135,6 @@ showArrow = (arrows, upDown) ->
   $arrow.show()
 
 showNextTrial = ->
-  clearStimuli()
-  trial = trials.next()
-  $arrow = $('#' + trial.arrows + '_' + trial.upDown)
   $('#fixation').show()
   
   TabCAT.UI.wait(_.random(FIXATION_PERIOD_MIN, FIXATION_PERIOD_MAX)).then(->
@@ -170,7 +150,6 @@ hideFeedback = ->
   $feedback = $('#feedback')
   $feedback.hide()
 
-      
 handleResponseTouchStart = (event) ->
   event.preventDefault()
   event.stopPropagation()
@@ -182,27 +161,27 @@ handleResponseTouchStart = (event) ->
   showFeedback(currentTrial.corrAns is response)
 
   TabCAT.UI.wait(PRACTICE_FEEDBACK_DISPLAY_DURATION).then(->
-    showNextTrial()
+    next()
   )
+
+handleBeginClick = (event) ->
+  hideBeginButton()
+  showResponseButtons()
+  clearStimuli()
+  next()
 
 # INSTRUCTIONS
 showStartScreen = ->
   $intro = $('#stimuli')
   
   $beginButton = $('#beginButton')
-  $beginButton.on('click', ->
-    hideBeginButton()
-    showResponseButtons()
-    clearStimuli()
-    showNextTrial()
-  )
+  $beginButton.on('click', handleBeginClick)
   
   $responseButtons = $('#leftResponseButton, #rightResponseButton')
   $responseButtons.on('mousedown touchstart', handleResponseTouchStart)
   
   $intro.show()
   showBeginButton()
-
 
 # INITIALIZATION
 @initTask = ->
