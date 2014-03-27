@@ -23,7 +23,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-include ../Makefile.vars  # $(TABCAT_HOST) and $(PUSHED)
+include ../Makefile.common  # $(TABCAT_HOST) and $(PUSHED)
 
 # CoffeeScript to compile into JavaScript
 COFFEE_SRC = $(shell find . -name '*.coffee' -not -name '.*')

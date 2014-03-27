@@ -9,7 +9,7 @@
 /core/js/couchdb/*.js
 /core/js/couchdb/*/*.js
 /core/js/tabcat/*.js
-/core/packages
+#/core/packages
 /tasks/*/Makefile
 /tasks/*/design.json
-/tasks/*/packages
+#/tasks/*/packages
