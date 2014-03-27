@@ -23,5 +23,9 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# we use a lot of shell commands that redirect output into a file;
+# if these break, we don't want the resulting empty file.
+.DELETE_ON_ERROR:
+
 TABCAT_HOST ?= http://127.0.0.1:5984
 PUSHED = .pushed-$(subst :,_,$(subst /,_,$(TABCAT_HOST)))

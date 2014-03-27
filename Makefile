@@ -25,7 +25,7 @@
 
 # This mostly ties together other makefiles. Most of the interesting stuff is in
 # core/Makefile and tasks/Makefile.default
-include Makefile.vars  # $(TABCAT_HOST) and $(PUSHED)
+include Makefile.common  # $(TABCAT_HOST) and $(PUSHED)
 
 # each task gets its own target (e.g. "line-orientation")
 TASK_TARGETS = $(patsubst tasks/%/kanso.json, %, $(wildcard tasks/*/kanso.json))
