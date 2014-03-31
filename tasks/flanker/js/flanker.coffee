@@ -31,7 +31,7 @@ DEFAULT_TRIALS = [
 
 # pre trial delay of 0.4 seconds in practice blocks
 # (time between response and next fixation)
-PRACTICE_PRE_TRIAL_DELAY = 400
+PRACTICE_PRE_TRIAL_DELAY = 4000
 
 # In practice trials, feedback is displayed to subject
 # about their responses for 2 seconds
@@ -100,16 +100,36 @@ testingBlock = new TrialHandler(2)
 currentBlock = practiceBlock1
 practiceMode = true
 
+
+showArrow = (arrows, upDown) ->
+  $arrow = $('#'+arrows+'_'+upDown)
+  $arrow.show()
+
+hideFeedback = ->
+  $feedback = $('#feedback')
+  $feedback.hide()
+
+showFeedback = (correct) ->
+  msg = if correct then "Correct!" else "Incorrect"
+  $feedback = $('#feedback').text(msg)
+  $feedback.show()
+
+showNextTrial = ->
+  clearStimuli()
+  $('#fixation').show()
+  
+  TabCAT.UI.wait(_.random(FIXATION_PERIOD_MIN, FIXATION_PERIOD_MAX)).then(->
+    trial = currentBlock.next()
+    $arrow = $('#' + trial.arrows + '_' + trial.upDown)
+    $arrow.show()
+  )
+
 preTrialDelay = ->
-  alersdt 'pretrial '
   if practiceMode
     TabCAT.UI.wait(PRACTICE_PRE_TRIAL_DELAY).then(-> return)
   else
     TabCAT.UI.wait(PRE_TRIAL_DELAY).then(-> return)
-  clearStimuli()
-  trial = currentBlock.next()
-  $arrow = $('#' + trial.arrows + '_' + trial.upDown)
-
+  
 next = ->
   preTrialDelay()
   showNextTrial()
@@ -130,37 +150,18 @@ showResponseButtons = ->
 hideResponseButtons = ->
   $('#leftResponseButton, #rightResponseButton').hide()
 
-showArrow = (arrows, upDown) ->
-  $arrow = $('#'+arrows+'_'+upDown)
-  $arrow.show()
-
-showNextTrial = ->
-  $('#fixation').show()
-  
-  TabCAT.UI.wait(_.random(FIXATION_PERIOD_MIN, FIXATION_PERIOD_MAX)).then(->
-    $arrow.show()
-  )
-
-showFeedback = (correct) ->
-  msg = if correct then "Correct!" else "Incorrect"
-  $feedback = $('#feedback').text(msg)
-  $feedback.show()
-
-hideFeedback = ->
-  $feedback = $('#feedback')
-  $feedback.hide()
-
 handleResponseTouchStart = (event) ->
   event.preventDefault()
   event.stopPropagation()
   
   clearStimuli()
   response = event.target.value.toLowerCase()
-  currentTrial = trials.currentTrial
+  currentTrial = currentBlock.currentTrial
   
   showFeedback(currentTrial.corrAns is response)
 
   TabCAT.UI.wait(PRACTICE_FEEDBACK_DISPLAY_DURATION).then(->
+    clearStimuli()
     next()
   )
 
