@@ -18,11 +18,11 @@ body {
   background-color: #eeeeee;
 }
 
-#translations {
+#instructions {
   text-align: center;
 }
 
-#translations p {
+#instructions p {
   margin: 1em;
   font-size: 2.3em;
 }
