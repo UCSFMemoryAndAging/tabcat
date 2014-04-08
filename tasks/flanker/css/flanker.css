@@ -7,23 +7,33 @@ body {
   margin: 0;
 }
 
+span.blue {
+    color: #0000ff;
+}
+
+span.red {
+    color: #ff0000;
+}
+
 /* debug mode */
 #task div {
   border: 1px solid;
 }
 
+#debug {
+  position: absolute;
+  left: 0;
+}
+
 #stimuli {
   position: relative;
   height: 85%;
-  background-color: #eeeeee;
+  /* background-color: #eeeeee; for debug */
 }
 
 #instructions {
   text-align: center;
-}
-
-#instructions p {
-  margin: 1em;
+  margin: 2em;
   font-size: 2.3em;
 }
 
@@ -42,6 +52,11 @@ body {
   font-size: 3em;
 }
 
+#stimuli img.arrow {
+  height: 3.1cm;
+  width: 3.1cm;
+}
+
 #stimuli img.center {
   position: absolute;
   top: 50%;
@@ -50,22 +65,24 @@ body {
 
 /* offset by half the image dimensions (8px by 8px) */
 #stimuli img.fixation {
-  margin-top: -8px;
-  margin-left: -8px;
+  height: 0.4cm;
+  width: 0.4cm;
+  margin-top: -0.2cm;
+  margin-left: -0.2cm;
   z-index: 2;
 }
 
-/* 70px above fixation = -(128 + 70 ) */
+/* 1cm above fixation = -(3.1/2 + 1) */
 #stimuli img.aboveFixation {
-  margin-top: -198px;
-  margin-left: -128px;
+  margin-top: -2.55cm;
+  margin-left: -1.55cm;
   z-index: 1;
 }
 
-/* 70px below fixation = (128 - 70 ) */
+/* 1cm below fixation = -(3.1/2 - 1) */
 #stimuli img.belowFixation {
-  margin-top: -58px;
-  margin-left: -128px;
+  margin-top: -0.55cm;
+  margin-left: -1.55cm;
   z-index: 1;
 }
 
@@ -73,7 +90,7 @@ body {
   height: 15%;
   text-align: center;
   width: 100%;
-  background-color: #cccccc;    
+  /*background-color: #cccccc;  for debug*/
 }
 
 #responseButtons button {
@@ -84,6 +101,7 @@ body {
   padding: 0.4em;
 }
 
+/* for debug */
 #responseButtons div {
   position: absolute;
   float: left;

@@ -17,32 +17,34 @@ translations =
       practice_html:
         '<p>You will be shown a series of arrows on the screen, ' +
         'pointing to the left or to the right. For example:</p>' +
-        '<img width="100" height="100" src="img/rrrrr.bmp"/>' +
-        '<p>or</p>' +
-        '<img width="100" height="100" src="img/llrll.bmp"/>' +
+        '<img class="arrow" src="img/rrrrr.bmp"/>' +
+        '<br/>or<br/>' +
+        '<img class="arrow" src="img/llrll.bmp"/>' +
         '<p>Press the RIGHT button if the CENTER arrow ' +
-        'points to the right.</p>' +
-        '<p>Press the LEFT button if the CENTER arrow ' +
+        'points to the right.</br>' +
+        'Press the LEFT button if the CENTER arrow ' +
         'points to the left.</p>' +
         '<p>Try to respond as quickly and accurately as you can.</p>' +
         '<p>Try to keep your attention focused on the ' +
         'cross ("+") at the center of the screen.</p>' +
-        '<p>First we\'ll do a practice trial.</p>'
+        '<p>First we\'ll do a practice trial.</p>' +
+        '<p>Tap the "Begin" button when you are ready to begin.</p>'
       additional_practice_html:
         '<p>You have completed the practice trial. ' +
         'Let\'s do another practice trial.</p>' +
         '<p>You will be shown a series of arrows on the screen, ' +
         'pointing to the left or to the right. For example:</p>' +
-        '<img width="100" height="100" src="img/rrrrr.bmp"/>' +
-        '<p>or</p>' +
-        '<img width="100" height="100" src="img/llrll.bmp"/>' +
+        '<img class="arrow" src="img/rrrrr.bmp"/>' +
+        '</br>or</br>' +
+        '<img class="arrow" src="img/llrll.bmp"/>' +
         '<p>Press the RIGHT button if the CENTER arrow ' +
-        'points to the right.</p>' +
-        '<p>Press the LEFT button if the CENTER arrow ' +
+        'points to the right.</br>' +
+        'Press the LEFT button if the CENTER arrow ' +
         'points to the left.</p>' +
         '<p>Try to respond as quickly and accurately as you can.</p>' +
         '<p>Try to keep your attention focused on the ' +
-        'cross ("+") at the center of the screen.</p>'
+        'cross ("+") at the center of the screen.</p>' +
+        '<p>Tap the "Begin" button when you are ready to begin.</p>'
       testing_html:
         '<p>Now we\'ll move on to the task, the instructions are the same ' +
         'except you will no longer receive feedback after your responses.</p>' +
@@ -54,16 +56,15 @@ translations =
         '<br/>' +
         '<p>Remember to keep your focus on the center cross ("+") and try to ' +
         'respond as quickly as possible without making mistakes.</p>' +
-        '<br/>' +
         '<p>Tap the "Begin" button when you are ready to begin.</p>'
       complete_html:
         '<p>The task is complete.</p>'
       feedback_correct_html:
-        'Correct!'
+        '<span class="blue">Correct!</span>'
       feedback_incorrect_html:
-        'Incorrect.'
+        '<span class="red">Incorrect.</span>'
       feedback_no_response_html:
-        'No response detected.'
+        '<span class="red">No response detected.</span>'
 
 TEST_TRIALS = [
   {'congruent':0, 'arrows':'lllll', 'upDown':'up'  , 'corrAns':'left'},
@@ -84,11 +85,11 @@ DEFAULT_TRIALS = [
 
 # pre trial delay of 0.4 seconds in practice blocks
 # (time between response and next fixation)
-PRACTICE_PRE_TRIAL_DELAY = 4
+PRACTICE_PRE_TRIAL_DELAY = 400
 
 # In practice trials, feedback is displayed to subject
 # about their responses for 2 seconds
-PRACTICE_FEEDBACK_DISPLAY_DURATION = 200
+PRACTICE_FEEDBACK_DISPLAY_DURATION = 2000
 
 # If the subject gets 6 out of 8 trials correct in a practice trial then
 # skip ahead to the real testing trial. If the subject fails to get
@@ -100,12 +101,12 @@ PRACTICE_MAX_BLOCKS = 3
 
 # Displays fixation stimuli for at least 1 second and
 # no more than 3 seconds (random)
-FIXATION_PERIOD_MIN = 100
-FIXATION_PERIOD_MAX = 300
+FIXATION_PERIOD_MIN = 1000
+FIXATION_PERIOD_MAX = 3000
 
 # pre trial delay of 0.2 seconds in real testing
 # (time between response and next fixation)
-PRE_TRIAL_DELAY = 20
+PRE_TRIAL_DELAY = 200
 
 # trial stimuli is displayed for 4 seconds or until subject
 # provides a keyboard response
@@ -123,15 +124,15 @@ numPracticeBlocks = 1
 # have we passed the practice yet?
 practicePassed = ->
   (numPracticeBlocks <= PRACTICE_MAX_BLOCKS \
-    and numCorrectInPractice >= PRACTICE_MIN_CORRECT)
+    and numCorrectInPractice >= PRACTICE_MIN_CORRECT \
+    and PRACTICE_BLOCK.end())
 
 # start off in practice mode
 inPracticeMode = true
 
-currentTrial = false
-
+# for debugging
 pp = (msg) ->
-  $('#debug').html(JSON.stringify(msg))
+  $('#debug').append(JSON.stringify(msg)).append('</br>')
 
 TrialHandler = class
 
@@ -179,21 +180,26 @@ TrialHandler = class
       @currentTrial = @trialList[index]
     
   pp: ->
-    pp(JSON.stringify(@sequenceIndices))
-    
-  ppCurrentState: ->
-    pp("currentTrialNum: " + JSON.stringify(@currentTrialNum))
+    pp(@sequenceIndices)
+
+
 
 PRACTICE_BLOCK = new TrialHandler(1)
 TESTING_BLOCK = new TrialHandler(2)
 
-#PRACTICE_BLOCK.pp()
-#TESTING_BLOCK.pp()
+PRACTICE_BLOCK.pp()
+TESTING_BLOCK.pp()
 
+showFixation = ->
+  $('#fixation').show()
 
-showArrow = (arrows, upDown) ->
-  $arrow = $('#'+arrows+'_'+upDown)
+showArrow = (trial) ->
+  $arrow = $('#' + trial.arrows + '_' + trial.upDown)
   $arrow.show()
+
+hideArrow = (trial) ->
+  $arrow = $('#' + trial.arrows + '_' + trial.upDown)
+  $arrow.hide()
 
 clearStimuli = ->
   $stimuli = $('#stimuli')
@@ -201,18 +207,29 @@ clearStimuli = ->
 
 showBeginButton = ->
   hideResponseButtons()
-  $('#beginButton').show()
+  $beginButton = $('#beginButton')
+  $beginButton.one('click', handleBeginClick)
+  $beginButton.show()
 
 hideBeginButton = ->
   $('#beginButton').hide()
     
 showResponseButtons = ->
   hideBeginButton()
-  $('#leftResponseButton, #rightResponseButton').show()
+  $responseButtons = $('#leftResponseButton, #rightResponseButton')
+  $responseButtons.show()
 
 hideResponseButtons = ->
   $('#leftResponseButton, #rightResponseButton').hide()
+
+enableResponseButtons = ->
+  $responseButtons = $('#leftResponseButton, #rightResponseButton')
+  $responseButtons.prop('disabled',false)
   
+disableResponseButtons = ->
+  $responseButtons = $('#leftResponseButton, #rightResponseButton')
+  $responseButtons.prop('disabled',true)
+
 showInstructions = (translation) ->
   clearStimuli()
   $instructions = $('#instructions')
@@ -220,6 +237,7 @@ showInstructions = (translation) ->
   $instructions.show()
 
 showFeedback = (translation) ->
+  clearStimuli()
   $feedback = $('#feedback')
   $feedback.html($.t(translation))
   $feedback.show()
@@ -228,24 +246,105 @@ hideFeedback = ->
   $feedback = $('#feedback')
   $feedback.hide()
 
-showCurrentTrial = ->
-  clearStimuli()
-  $('#fixation').show()
 
-  TabCAT.UI.wait(_.random(FIXATION_PERIOD_MIN, FIXATION_PERIOD_MAX)).then(->
-    $arrow = $('#' + currentTrial.arrows + '_' + currentTrial.upDown)
-    $arrow.show()
-    #TabCAT.UI.wait(STIMULI_DISPLAY_DURATION).then(->
-      #$arrow.hide()
-      #showFeedback 'feedback_no_response_html'
-    #)
+# summary of the current state of the task
+getTaskState = ->
+  state =
+    cometsCaught: cometsCaught
+    intensity: getIntensity()
+    stimuli: getStimuli()
+    trialNum: staircase.trialNum
+
+  if inPracticeMode()
+    state.practiceMode = true
+
+  return state
+
+# summary of the current state of the task
+getTaskState = ->
+  state =
+    trial: ''
+
+  if inPracticeMode
+    state.practiceMode = true
+
+  return state
+
+showTrial = (trial) ->
+  deferred = new $.Deferred()
+  
+  # resolved when user responds
+  deferred.done((event, trial, fixationDuration) ->
+    clearStimuli()
+    response = event.target.value.toLowerCase()
+    correct = trial.corrAns is response
+    pp(JSON.stringify(trial) + " correct: " + correct)
+      
+    if inPracticeMode
+      if correct
+        numCorrectInPractice += 1
+        showFeedback 'feedback_correct_html'
+      else
+        showFeedback 'feedback_incorrect_html'
+      
+      TabCAT.UI.wait(PRACTICE_FEEDBACK_DISPLAY_DURATION).then(->
+        hideFeedback()
+      
+        if practicePassed()
+          inPracticeMode = false
+          showInstructions 'testing_html'
+          showBeginButton()
+        else
+          TabCAT.UI.wait(PRACTICE_PRE_TRIAL_DELAY).then(->
+            next()
+          )
+      )
+    else
+      TabCAT.UI.wait(PRE_TRIAL_DELAY).then(->
+        next()
+      )
+  )
+  
+  # fails when user does not respond (i.e. trial times out)
+  deferred.fail((trial, fixationDuration) ->
+    pp(JSON.stringify(trial) + " fixationDuration: " + \
+      fixationDuration.toString())
+    hideArrow(trial)
+    if inPracticeMode
+      showFeedback 'feedback_no_response_html'
+      TabCAT.UI.wait(PRACTICE_FEEDBACK_DISPLAY_DURATION).then(->
+        hideFeedback()
+        next()
+      )
+    else
+      next()
+  )
+
+  fixationDuration = _.random(FIXATION_PERIOD_MIN, FIXATION_PERIOD_MAX)
+  showFixation()
+  TabCAT.UI.wait(fixationDuration).then(->
+    enableResponseButtons()
+    $responseButtons = $('#leftResponseButton, #rightResponseButton')
+    $responseButtons.one('mousedown touchstart', (event) ->
+      event.preventDefault()
+      event.stopPropagation()
+      disableResponseButtons()
+      deferred.resolve(event, trial, fixationDuration)
+    )
+  
+    showArrow(trial)
+
+    # time out
+    TabCAT.UI.wait(STIMULI_DISPLAY_DURATION).then(->
+      deferred.reject(trial, fixationDuration)
+    )
+   
   )
 
 next = ->
   if inPracticeMode
     if PRACTICE_BLOCK.hasNext()
-      currentTrial = PRACTICE_BLOCK.next()
-      showCurrentTrial()
+      showTrial(PRACTICE_BLOCK.next())
     else
       if numPracticeBlocks is PRACTICE_MAX_BLOCKS # failed all 3 practices
         showInstructions 'complete_html'
@@ -257,60 +356,18 @@ next = ->
         showBeginButton()
   else
     if TESTING_BLOCK.hasNext()
-      currentTrial = TESTING_BLOCK.next()
-      showCurrentTrial()
+      showTrial(TESTING_BLOCK.next())
     else # end of testing block
       showInstructions 'complete_html'
 
-handleResponseTouchStart = (event) ->
-  event.preventDefault()
-  event.stopPropagation()
-  
-  clearStimuli()
-  response = event.target.value.toLowerCase()
-  correct = currentTrial.corrAns is response
-  
-  if inPracticeMode
-    if correct
-      numCorrectInPractice += 1
-      showFeedback 'feedback_correct_html'
-    else
-      showFeedback 'feedback_incorrect_html'
-      
-    TabCAT.UI.wait(PRACTICE_FEEDBACK_DISPLAY_DURATION).then(->
-      hideFeedback()
-      
-      if PRACTICE_BLOCK.end() and practicePassed()
-        inPracticeMode = false
-        showInstructions 'testing_html'
-        showBeginButton()
-      else
-        TabCAT.UI.wait(PRACTICE_PRE_TRIAL_DELAY).then(->
-          next()
-        )
-    )
-  else # in testing block
-    TabCAT.UI.wait(PRE_TRIAL_DELAY).then(->
-      next()
-    )
-
-  #pp(JSON.stringify(numPracticeBlocks) + ' | ' + \
-    #JSON.stringify(numCorrectInPractice) + ' | ' +
-    #PRACTICE_BLOCK.getSequence())
-
-
 handleBeginClick = (event) ->
+  clearStimuli()
   showResponseButtons()
+  disableResponseButtons()
   next()
 
 # INSTRUCTIONS
 showStartScreen = ->
-  $beginButton = $('#beginButton')
-  $beginButton.on('click', handleBeginClick)
-  
-  $responseButtons = $('#leftResponseButton, #rightResponseButton')
-  $responseButtons.on('mousedown touchstart', handleResponseTouchStart)
-
   showInstructions 'practice_html'
   showBeginButton()
 
