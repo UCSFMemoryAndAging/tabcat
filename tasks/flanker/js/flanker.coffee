@@ -153,9 +153,6 @@ TrialHandler = class
     trialListIndices = _.range @trialListLength
     (_.shuffle trialListIndices for i in [0...@numReps])
 
-  getSequence: ->
-    @sequenceIndices
-
   hasNext: ->
     not @end()
   
@@ -178,10 +175,13 @@ TrialHandler = class
     else
       index = @sequenceIndices[@currentRepNum][@currentTrialNum]
       @currentTrial = @trialList[index]
+
+  # for debug
+  getSequence: ->
+    @sequenceIndices
     
   pp: ->
     pp(@sequenceIndices)
-
 
 
 PRACTICE_BLOCK = new TrialHandler(1)
@@ -247,40 +247,28 @@ hideFeedback = ->
   $feedback.hide()
 
 
-# summary of the current state of the task
-getTaskState = ->
-  state =
-    cometsCaught: cometsCaught
-    intensity: getIntensity()
-    stimuli: getStimuli()
-    trialNum: staircase.trialNum
-
-  if inPracticeMode()
-    state.practiceMode = true
-
-  return state
-
-# summary of the current state of the task
-getTaskState = ->
-  state =
-    trial: ''
-
-  if inPracticeMode
-    state.practiceMode = true
-
-  return state
-
+# heart of the task
 showTrial = (trial) ->
   deferred = new $.Deferred()
   
   # resolved when user responds
-  deferred.done((event, trial, fixationDuration) ->
+  deferred.done((event, trial, fixationDuration, responseTime) ->
     clearStimuli()
     response = event.target.value.toLowerCase()
     correct = trial.corrAns is response
-    pp(JSON.stringify(trial) + " correct: " + correct)
+    
+    state =
+      response: response
+      trial: trial
+      fixationDuration: fixationDuration
+      responseTime: responseTime
+      
+    interpretation =
+      correct: correct
       
     if inPracticeMode
+      state.practiceMode = true
+      state.block = "practiceBlock" + numPracticeBlocks
       if correct
         numCorrectInPractice += 1
         showFeedback 'feedback_correct_html'
@@ -289,7 +277,6 @@ showTrial = (trial) ->
       
       TabCAT.UI.wait(PRACTICE_FEEDBACK_DISPLAY_DURATION).then(->
         hideFeedback()
-      
         if practicePassed()
           inPracticeMode = false
           showInstructions 'testing_html'
@@ -303,44 +290,62 @@ showTrial = (trial) ->
       TabCAT.UI.wait(PRE_TRIAL_DELAY).then(->
         next()
       )
+      state.block = "testingBlock"
+    
+    TabCAT.Task.logEvent(state, event, interpretation)
   )
   
   # fails when user does not respond (i.e. trial times out)
   deferred.fail((trial, fixationDuration) ->
-    pp(JSON.stringify(trial) + " fixationDuration: " + \
-      fixationDuration.toString())
     hideArrow(trial)
+
+    state =
+      trial: trial
+      fixationDuration: fixationDuration
+
+    interpretation =
+      correct: false
+
     if inPracticeMode
       showFeedback 'feedback_no_response_html'
       TabCAT.UI.wait(PRACTICE_FEEDBACK_DISPLAY_DURATION).then(->
         hideFeedback()
         next()
       )
+      state.block = "practiceBlock" + numPracticeBlocks
     else
+      state.block = "testingBlock"
       next()
+              
+    TabCAT.Task.logEvent(state, "timeout", interpretation)
   )
 
+  # start showing the trial
   fixationDuration = _.random(FIXATION_PERIOD_MIN, FIXATION_PERIOD_MAX)
   showFixation()
   TabCAT.UI.wait(fixationDuration).then(->
     enableResponseButtons()
-    $responseButtons = $('#leftResponseButton, #rightResponseButton')
-    $responseButtons.one('mousedown touchstart', (event) ->
+    trialStartTime = $.now()
+    showArrow(trial)
+    
+    # if user response, then resolve
+    $('#leftResponseButton, #rightResponseButton') \
+    .one('mousedown touchstart', (event) ->
+      responseTime = $.now() - trialStartTime
       event.preventDefault()
       event.stopPropagation()
       disableResponseButtons()
-      deferred.resolve(event, trial, fixationDuration)
+      deferred.resolve(event, trial, fixationDuration, responseTime)
     )
-  
-    showArrow(trial)
 
-    # time out
+    # if trial times out, then reject
     TabCAT.UI.wait(STIMULI_DISPLAY_DURATION).then(->
       deferred.reject(trial, fixationDuration)
     )
    
   )
 
+# primary task handler that controls the entire flow
 next = ->
   if inPracticeMode
     if PRACTICE_BLOCK.hasNext()
@@ -348,6 +353,7 @@ next = ->
     else
       if numPracticeBlocks is PRACTICE_MAX_BLOCKS # failed all 3 practices
         showInstructions 'complete_html'
+        TabCAT.Task.finish()
       else # start new practice block
         PRACTICE_BLOCK.reset()
         numCorrectInPractice = 0
@@ -359,6 +365,7 @@ next = ->
       showTrial(TESTING_BLOCK.next())
     else # end of testing block
       showInstructions 'complete_html'
+      TabCAT.Task.finish()
 
 handleBeginClick = (event) ->
   clearStimuli()

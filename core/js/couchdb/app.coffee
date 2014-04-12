@@ -28,7 +28,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 patient = require('./patient')
 adhocLineTasksReport = require('./adhoc/line-tasks-report')
 adhocStargazerReport = require('./adhoc/stargazer-report')
-
+adhocFlankerReport = require('./adhoc/flanker-report')
 
 # stitch together data from the patient view
 dumpList = (head, req) ->
@@ -69,7 +69,8 @@ exports.lists =
   dump: dumpList
   'adhoc-line-tasks-report': adhocLineTasksReport.list
   'adhoc-stargazer-report': adhocStargazerReport.list
-
+  'adhoc-flanker-report': adhocFlankerReport.list
+  
 exports.validate_doc_update = validateDocUpdate
 
 exports.views =
