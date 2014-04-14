@@ -69,7 +69,7 @@ translations =
 TEST_TRIALS = [
   {'congruent':0, 'arrows':'lllll', 'upDown':'up'  , 'corrAns':'left'},
   {'congruent':1, 'arrows':'rrrrr', 'upDown':'down', 'corrAns':'right' },
-  {'congruent':2, 'arrows':'llrll', 'upDown':'up'  , 'corrAns':'right' },
+  {'congruent':0, 'arrows':'llrll', 'upDown':'up'  , 'corrAns':'right' },
 ]
 
 DEFAULT_TRIALS = [
@@ -187,8 +187,8 @@ TrialHandler = class
 PRACTICE_BLOCK = new TrialHandler(1)
 TESTING_BLOCK = new TrialHandler(2)
 
-PRACTICE_BLOCK.pp()
-TESTING_BLOCK.pp()
+#PRACTICE_BLOCK.pp()
+#TESTING_BLOCK.pp()
 
 showFixation = ->
   $('#fixation').show()
@@ -233,7 +233,7 @@ disableResponseButtons = ->
 showInstructions = (translation) ->
   clearStimuli()
   $instructions = $('#instructions')
-  $instructions.html($.t(translation))
+  $instructions.html("<p></p><p></p>" + $.t(translation))
   $instructions.show()
 
 showFeedback = (translation) ->
@@ -300,8 +300,10 @@ showTrial = (trial) ->
     hideArrow(trial)
 
     state =
+      response: "none"
       trial: trial
       fixationDuration: fixationDuration
+      responseTime: 0
 
     interpretation =
       correct: false
@@ -375,6 +377,7 @@ handleBeginClick = (event) ->
 
 # INSTRUCTIONS
 showStartScreen = ->
+  clearStimuli()
   showInstructions 'practice_html'
   showBeginButton()
 

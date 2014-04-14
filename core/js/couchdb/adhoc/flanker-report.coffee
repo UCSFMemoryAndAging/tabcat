@@ -79,8 +79,8 @@ patientHandler = (patientRecord) ->
 
             send(csv.arrayToCsv([data]))
 
-        # only keep the first task per patient
-        return
+  # only keep the first task per patient
+  return
 
 exports.list = (head, req) ->
   keyType = req.path[req.path.length - 1]

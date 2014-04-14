@@ -8,16 +8,16 @@ body {
 }
 
 span.blue {
-    color: #0000ff;
+  color: #0000ff;
 }
 
 span.red {
-    color: #ff0000;
+  color: #ff0000;
 }
 
 /* debug mode */
 #task div {
-  border: 1px solid;
+  border: 0px solid;
 }
 
 #debug {
@@ -28,13 +28,17 @@ span.red {
 #stimuli {
   position: relative;
   height: 85%;
-  /* background-color: #eeeeee; for debug */
+  /*background-color: #eeeeee; for debug */
 }
 
 #instructions {
   text-align: center;
-  margin: 2em;
   font-size: 2.3em;
+}
+
+#instructions p {
+  margin: 0;
+  padding: 0.4em;
 }
 
 /* 'line-height' value is arbitrary; should be equal to 'height' for vertical centering */
@@ -63,7 +67,7 @@ span.red {
   left: 50%;
 }
 
-/* offset by half the image dimensions (8px by 8px) */
+/* offset by half the image dimensions */
 #stimuli img.fixation {
   height: 0.4cm;
   width: 0.4cm;
@@ -94,17 +98,11 @@ span.red {
 }
 
 #responseButtons button {
-  width: 20%;
+  width: 15%;
   font-size: 5em;
   border-radius: 0.5em;
-  margin: 0;
   padding: 0.4em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
-/* for debug */
-#responseButtons div {
-  position: absolute;
-  float: left;
-  font-size: 3em;
-  left: 0;
-}
