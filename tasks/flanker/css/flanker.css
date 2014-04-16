@@ -1,0 +1,110 @@
+
+body {
+  background-color: #ffffff;
+  color: #000000;
+  /* Helvetica is the "everything is okay" font */
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+span.blue {
+  color: #0000ff;
+}
+
+span.red {
+  color: #ff0000;
+}
+
+/* debug mode */
+#task div {
+  border: 0px solid;
+}
+
+#debug {
+  position: absolute;
+  left: 0;
+}
+
+#stimuli {
+  position: relative;
+  height: 85%;
+  /*background-color: #eeeeee; for debug */
+}
+
+#instructions {
+  width: 60%;
+  margin: auto;
+  text-align: center;
+  font-size: 2.3em;
+}
+
+#instructions p {
+  margin: 0;
+  padding: 0.4em;
+}
+
+/* 'line-height' value is arbitrary; should be equal to 'height' for vertical centering */
+#stimuli div.feedback {
+  position: absolute;
+  left: 0; 
+  right: 0;
+  top: 0; 
+  bottom: 0;
+  margin: auto;
+  line-height: 300px; 
+  height: 300px;
+  z-index: 3;
+  text-align: center;
+  font-size: 3em;
+}
+
+#stimuli img.arrow {
+  height: 3.1cm;
+  width: 3.1cm;
+}
+
+#stimuli img.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+/* offset by half the image dimensions */
+#stimuli img.fixation {
+  height: 0.4cm;
+  width: 0.4cm;
+  margin-top: -0.2cm;
+  margin-left: -0.2cm;
+  z-index: 2;
+}
+
+/* 1cm above fixation = -(3.1/2 + 1) */
+#stimuli img.aboveFixation {
+  margin-top: -2.55cm;
+  margin-left: -1.55cm;
+  z-index: 1;
+}
+
+/* 1cm below fixation = -(3.1/2 - 1) */
+#stimuli img.belowFixation {
+  margin-top: -0.55cm;
+  margin-left: -1.55cm;
+  z-index: 1;
+}
+
+#responseButtons {
+  height: 15%;
+  text-align: center;
+  width: 100%;
+  /*background-color: #cccccc;  for debug*/
+}
+
+#responseButtons button {
+  width: 15%;
+  font-size: 5em;
+  border-radius: 0.5em;
+  padding: 0.4em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+

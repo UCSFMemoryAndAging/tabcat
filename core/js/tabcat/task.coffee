@@ -438,7 +438,7 @@ TabCAT.Task.logEvent = (state, event, interpretation, now) ->
 
   if state?
     eventLogItem.state = state
-
+  
   eventLog.push(eventLogItem)
 
   return
