@@ -54,6 +54,9 @@ TABCAT_DB = 'tabcat'
 # DB where we store patient and encounter docs
 DATA_DB = 'tabcat-data'
 
+# one hour, in milliseconds
+ONE_HOUR = 3600000
+
 # so we don't have to type window.localStorage in functions
 localStorage = @localStorage
 
@@ -407,10 +410,13 @@ TabCAT.Task.getElementBounds = (element) ->
 # For most true/false values, only include the field if it's true.
 TabCAT.Task.logEvent = (state, event, interpretation, now) ->
   if not now?  # ...when?
-    if event?.timeStamp?
-      now = event.timeStamp - TabCAT.Clock.offset()
-    else
-      now = TabCAT.Clock.now()
+    timeStamp = $.now()
+    # use event.timeStamp if it's sane. Firefox sets this to the wrong value,
+    # see https://api.jquery.com/event.timeStamp/
+    if event?.timeStamp? and Math.abs(event.timeStamp - timeStamp) <= ONE_HOUR
+      timeStamp = event.timeStamp
+
+    now = timeStamp - TabCAT.Clock.offset()
 
   eventLogItem = now: now
 

@@ -162,9 +162,10 @@ PRACTICE_MODE_INTENSITIES = [-1, -1, -2, -2]
 # initial static "staircase" for the real trial
 staircase = new TabCAT.Task.Staircase(
   intensity: -2
-  minCorrect: 2
   minIntensity: -MAX_TARGET_STARS
   maxIntensity: -MIN_TARGET_STARS
+  stepsUp: 2
+  stepsDown: 1
 )
 
 # use this to turn off comets, for faster debugging

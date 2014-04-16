@@ -1,3 +1,10 @@
+v0.6.2, 2014-03-27 -- Revert stargazer staircasing
+- build system:
+  - kanso packages directories are included, since kan.so is down (#96)
+- tasks:
+  - stargazer:
+    - went back to original 2-up-1-down staircasing (kept new star layout)
+
 v0.6.1, 2014-03-20 -- Sandbox mode
 - build system:
   - design docs are pushed with curl, not kanso push (#40)
