@@ -5,7 +5,7 @@
     "attachments": [
         "css/flanker.css",
         "img/fixation.bmp",
-        "img/flanker.png",
+        "img/flanker.bmp",
         "img/lllll.bmp",
         "img/llrll.bmp",
         "img/rrlrr.bmp",
@@ -20,7 +20,7 @@
         "tasks": {
             "flanker": {
                 "description": "Flanker",
-                "icon": "img/flanker.png",
+                "icon": "img/flanker.bmp",
                 "start": "flanker.html"
             }
         }
