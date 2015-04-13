@@ -37,7 +37,7 @@ TASK_TO_NORMS =
   'line-orientation': [
     {
       cohort:
-        minAge: 50
+        minAge: 40
         maxAge: 70
       mean: 5.0
       n: 18
