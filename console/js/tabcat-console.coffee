@@ -84,29 +84,121 @@ TabCAT.Console.updateStatusBar = ->
   if TabCAT.Console.inSandbox()
     $statusBar.addClass('sandbox')
 
+  # coffeelint: disable=max_line_length
   # populate with new HTML if we didn't already
   if $statusBar.find('div.left').length is 0
     $statusBar.html(
       """
       <div class="left">
+<!--
         <span class="banner"></span>
         <span class="version"></span>
-        <p class="offline"></p>
+        <p class="offline"></p> -->
       </div>
       <div class="right">
         <p class="email">&nbsp;</p>
-        <button class="login" style="display:none"></span>
+        <nav class='menu-nav'>
+          <div id='burger'>
+            <p class='icon-reorder burger'></p>
+          </div>
+        </nav>
+        <div id='menu'>
+          <ul>
+            <p id='close'><i class='icon-reorder'></i></p>
+            <li class='menu-list-item show-dev'><a href='#'>DEVICE NAME</a></li>
+            <li class='menu-list-item device-input'>
+              <input type='text' name='device' class='device-name'>
+            </li>
+            <li class='menu-list-item show-lang'><a href='#'>SELECT A LANGUAGE</a></li>
+            <li class="menu-list-item lang">
+              <select name="language">
+                <option value='english' selected>English</option>
+                <option value='dutch'>Dutch</option>
+                <option value='french'>French</option>
+                <option value='german'>German</option>
+                <option value='japanese'>Japanese</option>
+              </select>
+            </li>
+            <li class='menu-list-item sync'><a href='#'>SYNC DATA</a></li>
+              <ul class='sub-item'>
+                <li class='menu-list-item set-password'>
+                  <form id="setPassword" action="#" method="post">
+                    <input type="email" name="email" autofocus="autofocus" placeholder="Email">
+                    <input type="password" name="password" placeholder="Password">
+                    <input type="password" name="password" placeholder="Confirm password">
+                    <button class='save-password'>Submit</button>
+                  </form>
+                  <button class='sync-data'>Sync Data</button>
+                </li>
+              </ul>
+            <li class='menu-list-item saveChanges'><button class='save button button--large'><span class='btn-label-save'><i class='fa fa-check fa-fw'></i></span>Save Changes</button></li>
+            <li class='menu-list-item saveChanges'><button class='login closeEncounter'></button></li>
+          </ul>
+        </div>
       </div>
       <div class="center">
-        <p class="encounter"></p>
-        <p class="clock"></p>
+        <span class="banner"></span>
+        <span class="version"></span>
+        <br/>
+        <br>
+        <p class="encounter message"></p>
+        <p class="clock message"></p>
       </div>
       """
     )
+    # coffeelint: enable=max_line_length
+
+    #Hide the hamburger menu as default
+    menu = $("#menu")
+    menu.hide()
+
+    #Show and Hide Menu on Touchdown
+    $("#burger").touchdown ->
+      menu = $("#menu")
+      menu.show()
+      menu.css.left = "256px"
+      $("#burger").css.textAlign = "left"
+      $('.menu-nav').css
+        position: 'fixed'
+
+    $("#close").touchdown ->
+      menu = $("#menu")
+      menu.css.left = "0"
+      menu.hide()
+      $('.menu-nav').css
+        position: "static"
+
+    #Hide device input field & Open on Touchdown
+    textInput = $(".device-name")
+    textInput.hide()
+    $('.show-dev').touchdown ->
+      textInput.toggle()
+
+    #Hide lang select field & Open on Touchdown
+    language = $(".lang")
+    language.hide()
+    $('.show-lang').touchdown ->
+      language.toggle()
+
+
+    #Hide SYNC DATA form by default
+    syncDiv = $('.set-password')
+    syncDiv.hide()
+    syncData = $("#setPassword")
+    syncData.hide()
+    syncButton = $('.sync-data')
+    syncButton.hide()
+    $('.sync').touchdown ->
+      syncDiv.toggle()
+      syncData.toggle()
+      syncButton.toggle()
+      $('.sync').toggleClass 'syncopen'
+
 
     $statusBar.find('.version').text(TabCAT.version)
 
     $statusBar.find('button.login').on('click', (event) ->
+      alert('login button clicked')
       button = $(event.target)
       if button.text() == 'Log Out'
         $emailP = $statusBar.find('p.email')

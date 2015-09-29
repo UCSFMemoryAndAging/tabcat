@@ -5,17 +5,24 @@
     <meta charset="utf-8" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <link rel="shortcut icon" href="../core/img/favicon.ico"/>
-    <link rel="stylesheet" href="../core/css/tabcat.css">
-    <link rel="stylesheet" href="css/console.css">
+    <!--<link rel="stylesheet" href="../core/css/tabcat.css">-->
+    <!--<link rel="stylesheet" href="css/console.css">-->
+    <link rel="stylesheet" href="css/main.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   </head>
-  <body>
-    <div id="statusBar"></div>
+  <body class="blueBackground">
+    <div class="banner-main">
+      <div id="statusBar"></div>
+    </div>
     <div id="tasks">
-      <p class="message">
-        Select a task from one of the batteries below, or
-        <button id="closeEncounter" disabled>Close Encounter</button>
+      <p class="message task-message instructions">
+        Select a task from one of the batteries below
       </p>
       <div id="taskList" class="unselectable"></div>
+      <p class="task-encounter-button">
+        <button id="closeEncounter" class="button button--large button--danger"><span class="btn-label-danger"><i class="fa fa-close fa-fw"></i></span>Close Encounter</button>
+      </p>
     </div>
     <script src="../core/js/tabcat.js"></script>
     <script src="js/tabcat-console.js"></script>

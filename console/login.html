@@ -1,37 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" class="fullscreen" manifest="/tabcat/offline/cache.manifest">
-  <head>
-    <title>TabCAT</title>
-    <meta charset="utf-8" />
-    <!-- allow launching this in fullscreen like an app on iPad -->
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-    <link rel="apple-touch-icon" href="img/icon.png"/>
-    <link rel="shortcut icon" href="../core/img/favicon.ico"/>
-    <link rel="stylesheet" href="../core/css/tabcat.css">
-    <link rel="stylesheet" href="css/console.css">
-  </head>
-  <body class="blueBackground">
-    <div id="loginMain">
+<head>
+  <title>TabCAT</title>
+  <meta charset="utf-8" />
+  <!-- allow launching this in fullscreen like an app on iPad -->
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <link rel="apple-touch-icon" href="img/icon.png"/>
+  <!--<link rel="shortcut icon" href="../core/img/favicon.ico"/>-->
+  <!--<link rel="stylesheet" href="../core/css/tabcat.css">-->
+  <!--<link rel="stylesheet" href="css/console.css">-->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+</head>
+<body class="blueBackground">
+<div class="wrap">
+  <div class="content">
+    <div class="banner-main">
       <span class="logo" src="img/logo.png"><p class="version"></p></span>
+      <p id="message" class="message"></p>
+    </div>
+    <div id="loginMain">
       <form id="loginForm" action="#" method="post">
-        <p id="message" class="message"></p>
         <p>
-          <label>Email</label>
-          <input type="email" name="email" autofocus="autofocus">
+          <input type="email" name="email" autofocus="autofocus" placeholder="ex:johndoe@example.com">
         </p>
         <p>
-          <label>Password</label>
-          <input type="password" name="password">
+          <input type="password" name="password" placeholder="password">
         </p>
         <p>
-          <button type="submit">Log In</button>
+          <button type="submit" class="button button--large button--success"><span class="btn-label-success"><i class="fa fa-check fa-fw"></i></span> Log In</button>
         </p>
       </form>
     </div>
-    <script src="../core/js/tabcat.js"></script>
-    <script src="js/tabcat-console.js"></script>
-    <script src="js/login.js"></script>
-    <script>initPage();</script>
-  </body>
+  </div>
+</div>
+<script src="../core/js/tabcat.js"></script>
+<script src="js/tabcat-console.js"></script>
+<script src="js/login.js"></script>
+<script>initPage();</script>
+</body>
 </html>

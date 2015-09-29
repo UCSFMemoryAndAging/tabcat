@@ -1,0 +1,88 @@
+@import "../../../node_modules/susy/sass/_susy.scss";
+
+$susy: (
+        columns: 12,
+        gutter-position: split,
+        debug: (image: show)
+);
+
+.wrap {
+  @include container(1140px);
+}
+
+.content {
+  > div {
+    // .. Mobile styles for the layout here
+
+    // Tablet Layout Pattern
+    @media (min-width: 768px) and (max-width: 1024px){
+      //@include span(6);
+      //margin-bottom: gutter();
+      //&:nth-child(5n+1) {
+      //  @include span(12);
+      //}
+    }
+
+    // Desktop Layout Pattern
+    @media (min-width: 1025px) {
+      @include span(4);
+      //margin-bottom: gutter();
+      //
+      //&:nth-child(10n+1),
+      //&:nth-child(10n+7) {
+      //  @include span(8);
+      //}
+    }
+  }
+}
+
+.content > div {
+  background: #000824;
+  height: 200px;
+}
+
+//footer {
+//  clear: both;
+//  padding: span(1 of 12);
+//  background-color: $indigo;
+//}
+
+
+
+
+
+
+
+.banner-head{
+  
+  img.logo{
+    width: 180px;
+    height: 180px;
+    margin-top: 10px;
+    margin-bottom: -10px;
+  }
+  
+  span.logo{
+    display: inline-block;
+    position: relative;
+    width: 353px;
+    height: 120px;
+    margin-top: 7px;
+    background-image: url('../img/banner.png');
+    background-size: 353px 120px;
+  }
+}
+
+.banner-head span.logo p.version {
+  position: absolute;
+  top: 89px;
+  left: 205px;
+  font-size: 24px;
+  margin: 0;
+  color: #bbbbaa;
+}
+
+
+#loginMain{
+  text-align: center;
+}

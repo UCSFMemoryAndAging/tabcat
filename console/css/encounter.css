@@ -1,0 +1,191 @@
+body{
+    margin:0!important;
+    color: white;
+}
+input{
+    height: 30px;
+    width: 200px;
+    font-size: 1.2em;
+}
+.wrap {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /*background-image: -webkit-linear-gradient(left, transparent 10%, rgba(102, 102, 255, 0.25) 10%, rgba(179, 179, 255, 0.25) 90%, transparent 90%);
+    background-image: linear-gradient(to right, transparent 10%, rgba(102, 102, 255, 0.25) 10%, rgba(179, 179, 255, 0.25) 90%, transparent 90%);*/
+    background-size: 8.33333%;
+    background-origin: content-box;
+    background-clip: content-box;
+    background-position: left top;
+    width: 100%;
+}
+.wrap:after {
+    content: " ";
+    display: block;
+    clear: both;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .content > div {
+
+    }
+}
+@media (min-width: 1025px) {
+    .content > div {
+
+    }
+}
+
+
+
+
+/*Backgrounds and Banners*/
+/*-----------------------*/
+.blueBackground {
+    background-color: #000824;
+}
+
+.banner-main {
+    background: #122147;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 2em;
+    font-family: "Roboto-Regular", sans-serif;
+}
+
+.banner-main img.logo{
+    width: 180px;
+    height: 180px;
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
+
+.banner-main span.logo{
+    display: inline-block;
+    position: relative;
+    width: 353px;
+    height: 120px;
+    margin-top: 7px;
+    background-image: url('../img/banner.png');
+    background-size: 353px 120px;
+}
+
+.banner-main #message{
+    color: white;
+    font-size: 1.2em;
+}
+
+
+
+.banner-main span.logo p.version {
+    position: absolute;
+    top: 89px;
+    left: 205px;
+    font-size: 24px;
+    margin: 0;
+    color: #bbbbaa;
+}
+
+
+#loginMain{
+    text-align: center;
+}
+
+
+/*---Response Buttons--*/
+/*--------------------*/
+.button {
+    padding: .5em;
+    color: #fff;
+    transition: background 0.15s;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    border: 1px solid;
+    width: 170px;
+}
+
+.button--large {
+    font-size: 1.2em;
+}
+
+.button--small {
+    font-size: 0.83333em;
+}
+
+.button--bold {
+    font-weight: bold;
+}
+
+.button--block {
+    display: block;
+    width: 100%;
+}
+
+.button--upper {
+    text-transform: uppercase;
+}
+
+.button--default {
+    background-color: #122147;
+    border-color: #383E5E;
+}
+
+.button--default:hover,
+.button--default:active {
+    background: #5D5D79;
+}
+
+.button--success {
+    background-color: #61A255;
+    border-color: #61A255;
+}
+
+.button--success:hover,
+.button--success:active {
+    background: #357643;
+}
+
+.button--danger {
+    background-color: #D2605A;
+    border-color: #962d22;
+}
+
+.button--danger:hover,
+.button--danger:active {
+    background: #d65548;
+}
+
+.button--warning {
+    background-color: #f1c40f;
+    border-color: #c29d0b;
+}
+
+.button--warning:hover,
+.button--warning:active {
+    background: #f4d03f;
+}
+
+.button--info {
+    background-color: #2980b9;
+    border-color: #20638f;
+}
+
+.button--info:hover,
+.button--info:active {
+    background: #409ad5;
+}
+
+.btn-label {
+    position: relative;
+    left: -34px;
+    padding-top: 0.55em;
+    padding-right: 0.8rem;
+    padding-bottom: 0.55em;
+    padding-left: 0.8rem;
+    background: rgba(0,0,0,0.18);
+    border-radius: 9px 0 0 9px;
+}
+
+ .create{
+    width: 300px;
+}

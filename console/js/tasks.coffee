@@ -50,10 +50,10 @@ showTasks = ->
         $.t("config:tasks.#{name}.description",
           defaultValue: tasksByName[name].description))
 
-    batteries.push(['all-tasks',
-      description: $.t('all_tasks')
-      tasks: allTaskNames
-    ])
+#    batteries.push(['all-tasks',
+#      description: $.t('all_tasks')
+#      tasks: allTaskNames
+#    ])
 
     taskScoring = TabCAT.Encounter.getTaskScoring()
 
@@ -68,7 +68,7 @@ showTasks = ->
           defaultValue: battery.description))
       $batteryDiv.append($batteryHeader)
 
-      $tasksDiv = $('<div></div>', class: 'tasks collapsed')
+      $tasksDiv = $('<div></div>', class: 'tasks ')
 
       for taskName in battery.tasks
         task = tasksByName[taskName]
@@ -90,7 +90,7 @@ showTasks = ->
           $icon = $('<img>', class: 'icon', src: 'img/check-overlay.png')
           $icon.css('background-image', "url(#{iconUrl})")
         else
-          $icon = $('<img>', class: 'icon', src: iconUrl)
+          $icon = $('<img>', class: 'test-buttons', src: iconUrl)
         $taskDiv.append($icon)
 
         $taskDescription = $('<span></span>', class: 'description')
@@ -110,17 +110,17 @@ showTasks = ->
           $taskDiv.append($scores)
 
           # add handler to show scores (separate scope for each task)
-          do ($scores, $scoringMessage) ->
-            $taskDiv.on('click', (event) ->
-              # toggle visibility of scores
-              event.preventDefault()
-              if $scores.is('.collapsed')
-                $scores.removeClass('collapsed')
-                $scoringMessage.text('tap to hide scoring')
-              else
-                $scores.addClass('collapsed')
-                $scoringMessage.text('tap to show scoring')
-            )
+#          do ($scores, $scoringMessage) ->
+#            $taskDiv.on('click', (event) ->
+#              # toggle visibility of scores
+#              event.preventDefault()
+#              if $scores.is('.collapsed')
+#                $scores.removeClass('collapsed')
+#                $scoringMessage.text('tap to hide scoring')
+#              else
+#                $scores.addClass('collapsed')
+#                $scoringMessage.text('tap to show scoring')
+#            )
         else if finished
           $scoringMessage.text('no scoring available for this task')
         else
@@ -134,20 +134,20 @@ showTasks = ->
               # start the task
               $taskDiv.on('click', (event) -> window.location = startUrl)
 
-              if task.forms
-                for form, value of task.forms
-                  do ( =>
-                    $icon = $('<span></span>', class: 'alternateForm')
-                    formUrl = startUrl + '?form=' + value
-                    $icon.text(form)
-                    $icon.on('click', (event) ->
-                      event.preventDefault()
-                      event.stopPropagation()
-                      window.location = formUrl
-                      return false
-                    )
-                    $taskDiv.append $icon
-                  )
+#              if task.forms
+#                for form, value of task.forms
+#                  do ( =>
+#                    $icon = $('<span></span>', class: 'alternateForm')
+#                    formUrl = startUrl + '?form=' + value
+#                    $icon.text(form)
+#                    $icon.on('click', (event) ->
+#                      event.preventDefault()
+#                      event.stopPropagation()
+#                      window.location = formUrl
+#                      return false
+#                    )
+#                    $taskDiv.append $icon
+#                  )
 
         $taskDiv.append($scoringMessage)
         $tasksDiv.append($taskDiv)

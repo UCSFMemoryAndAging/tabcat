@@ -16,10 +16,7 @@ Vagrant.configure(2) do |config|
   
   
   config.vm.provider "virtualbox" do |v|
-    v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
-    #v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/SHARE_NAME", "1"]
-	#v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
-	#v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/var/www", "1"]
+    v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
   end
   
 
@@ -49,6 +46,7 @@ Vagrant.configure(2) do |config|
     vb.gui = false
     # Customize the amount of memory on the VM:
     vb.memory = "1024"
+    vb.cpus = 8
   end
   
   config.vm.provision "shell", path: "init.sh"

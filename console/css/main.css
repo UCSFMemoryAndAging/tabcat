@@ -1,0 +1,977 @@
+body {
+    color: white;
+    margin: 0;
+    /*overflow: hidden;*/
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 1em;
+}
+
+input {
+    height: 30px;
+    font-size: 1.2em;
+    background-color: white;
+}
+
+input[type=text] {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    outline: none;
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid #DDDDDD;
+}
+
+textarea {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    outline: none;
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0;
+    border: 1px solid #DDDDDD;
+}
+
+input:focus {
+    box-shadow: 0 0 5px #51cbee;
+    border: 2px solid #51cbee;
+}
+
+.wrap {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-size: 8.33333%;
+    background-origin: content-box;
+    background-clip: content-box;
+    background-position: left top;
+    width: 100%;
+}
+
+.wrap:after {
+    content: " ";
+    display: block;
+    clear: both;
+}
+
+.content {
+    text-align: center;
+}
+
+.icon-reorder {
+    font-weight: bolder;
+    font-size: xx-large;
+}
+
+.icon-reorder .burger {
+    font-weight: bolder;
+    font-size: xx-large;
+    padding-top: 15px;
+}
+
+/*Backgrounds and Banners*/
+/*-----------------------*/
+.blueBackground {
+    background-color: #000824;
+}
+
+.banner-main {
+    background: #122147;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 2em;
+    font-family: "Roboto-Regular", sans-serif;
+}
+
+.banner-main img.logo {
+    width: 180px;
+    height: 180px;
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
+
+.banner-main span.logo {
+    display: inline-block;
+    position: relative;
+    width: 353px;
+    height: 120px;
+    margin-top: 7px;
+    background-image: url("../img/banner.png");
+    background-size: 353px 120px;
+}
+
+.instructions {
+    color: #A6CFD7;
+    font-size: 1.6em;
+}
+
+.banner-main span.logo p.version {
+    position: absolute;
+    top: 89px;
+    left: 205px;
+    font-size: 24px;
+    margin: 0;
+    color: #bbbbaa;
+}
+
+#loginMain {
+    text-align: center;
+}
+
+/*---Response Buttons--*/
+/*--------------------*/
+.button {
+    padding: .5em;
+    color: #fff;
+    transition: background 0.15s;
+    border-radius: 8px;
+    border: 1px solid;
+}
+
+.button--large {
+    font-size: 1em;
+}
+
+.button--small {
+    font-size: 0.83333em;
+}
+
+.button--bold {
+    font-weight: bold;
+}
+
+.button--block {
+    display: block;
+    width: 100%;
+}
+
+.button--upper {
+    text-transform: uppercase;
+}
+
+.button--default {
+    background-color: #122147;
+    border-color: #383E5E;
+}
+
+.button--default:hover, .button--default:active {
+    background: #5D5D79;
+}
+
+.button--success {
+    background-color: #61A255;
+    border-color: #61A255;
+    width: 170px;
+}
+
+.button--success:hover, .button--success:active {
+    background: #357643;
+}
+
+.button--danger {
+    background-color: #D2605A;
+    border-color: #D2605A;
+    width: auto;
+    font-size: 1em;
+}
+
+.button--danger:hover, .button--danger:active {
+    background: #d65548;
+}
+
+.button--warning {
+    background-color: #f1c40f;
+    border-color: #c29d0b;
+}
+
+.button--warning:hover, .button--warning:active {
+    background: #f4d03f;
+}
+
+.button--info {
+    background-color: #2980b9;
+    border-color: #20638f;
+}
+
+.button--info:hover, .button--info:active {
+    background: #409ad5;
+}
+
+.btn-label-success {
+    position: relative;
+    left: -34px;
+    padding-top: 0.55em;
+    padding-right: 0.6rem;
+    padding-bottom: 0.65em;
+    padding-left: 0.8rem;
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: 9px 0 0 9px;
+}
+
+.btn-label-save {
+    position: relative;
+    padding-top: 0.55em;
+    padding-right: 0.40rem;
+    padding-bottom: 0.65em;
+    padding-left: 1rem;
+    border-radius: 9px 0 0 9px;
+    border-right: 2px solid white;
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+.btn-label-save i {
+    margin-left: -25px;
+}
+
+.btn-label-danger {
+    position: relative;
+    left: -18px;
+    padding-top: 0.75em;
+    padding-right: 0.8rem;
+    padding-bottom: 0.75em;
+    padding-left: 0.8rem;
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: 9px 0 0 9px;
+}
+
+.create {
+    width: 300px;
+}
+
+/*----------Status Bar---------*/
+/*----------------------------*/
+#statusBar {
+    text-align: center;
+    /*height: 50px;*/
+    padding: 5px;
+    min-width: 800px;
+}
+
+#statusBar div.left {
+    position: relative;
+    float: left;
+    width: 250px;
+    /*text-align: left;*/
+    color: #bbbbaa;
+    display: none;
+}
+
+#statusBar.sandbox div.left {
+    color: #ffffff;
+}
+
+#statusBar span.banner {
+    display: inline-block;
+    width: 325px;
+    height: 100px;
+    background-image: url("../img/banner.png");
+    background-size: 325px 100px;
+}
+
+#statusBar.sandbox span.banner {
+    background-image: url("../img/sandbox/banner.png");
+}
+
+#statusBar span.version {
+    position: relative;
+    margin: 0;
+    top: -13px;
+    vertical-align: bottom;
+    font-size: 18px;
+}
+
+#statusBar p.offline {
+    position: absolute;
+    font-size: 10px;
+    font-style: italic;
+    top: 30px;
+    left: 54px;
+}
+
+#statusBar p.offline span.warning {
+    font-weight: bold;
+    color: #ffcc99;
+}
+
+#statusBar div.right {
+    float: right;
+    text-align: right;
+    width: 250px;
+}
+
+#statusBar div.center {
+    width: 300px;
+    padding-left: 150px;
+}
+
+#statusBar p.email {
+    font-size: 14px;
+    margin: 0px;
+}
+
+#statusBar p.encounter {
+    font-size: 18px;
+    margin: 0px;
+}
+
+#statusBar p.clock {
+    font-size: 24px;
+    margin: 0px;
+}
+
+#statusBar div.center {
+    display: inline-block;
+}
+
+#statusBar button.login {
+    height: 50px;
+    border: none;
+    margin-right: 15px;
+    width: 170px;
+    font-size: 0;
+    background: url("../img/buttons/nav-endsession.png") no-repeat;
+    background-size: 100%;
+}
+
+#statusBar button.save {
+    width: 170px;
+    height: 40px;
+    color: white;
+    border: 2px solid white;
+    border-radius: 12px;
+    background-color: transparent;
+}
+
+#statusBar button.saveButton {
+    /*width: 250px;*/
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 12px;
+    margin-right: 15px;
+    width: 170px;
+    font-size: .8em;
+    font-family: "Roboto-Regular", sans-serif;
+    background: transparent;
+    background-size: 100%;
+    color: white;
+}
+
+/*-----tabcat-console.coffee hamburger menu------*/
+/*-----------------------------------------------*/
+nav {
+    height: 4em;
+    width: 100%;
+    z-index: -2;
+}
+
+#burger {
+    float: right;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-right: 15px;
+}
+
+#burger:active {
+    position: relative;
+    top: 2px;
+}
+
+.line {
+    width: 3em;
+    height: .5em;
+    background-color: white;
+    margin: .5em;
+    margin-right: .75em;
+}
+
+.line:nth-child(1) {
+    margin-top: .75em;
+}
+
+#menu {
+    float: right;
+    height: 100vh;
+    width: 256px;
+    background-color: #000824;
+    color: white;
+    position: absolute;
+    transition: 1s;
+    text-align: center;
+    opacity: 0.9;
+    top: 2px;
+    z-index: 1;
+}
+
+ul {
+    margin: 0;
+}
+
+ul p {
+    font-weight: bold;
+    position: absolute;
+    right: 1.5em;
+    top: .25em;
+    cursor: pointer;
+    text-align: center;
+    padding-right: 170px;
+}
+
+li {
+    margin-top: 4.5em;
+    list-style-type: none;
+    text-align: left;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+li a:-webkit-any-link {
+    color: white;
+    -moz-text-decoration-color: white;
+    text-decoration: none;
+    cursor: auto;
+}
+
+.menu-list-item {
+    border-bottom: 2px white solid;
+}
+
+.menu-list-item input {
+    width: 90%;
+}
+
+.show-dev {
+    margin-bottom: 5px;
+}
+
+.device-input {
+    margin-top: -15px;
+    /*display: none;*/
+    border-bottom: none;
+    margin-bottom: -15px;
+}
+
+.device-input input {
+    font-size: 1em;
+    font-family: "Roboto-Regular", sans-serif;
+    width: 95%;
+}
+
+.show-lang {
+    margin-top: -5px;
+}
+
+.lang {
+    border-bottom: none;
+    margin-top: -10px;
+}
+
+.lang select {
+    overflow: hidden;
+    height: 30px;
+    width: 100%;
+}
+
+.lang option {
+    border-bottom: 1px solid lightgray;
+    height: 25px;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 1.2em;
+    overflow: auto;
+}
+
+.sync {
+    margin-top: -5px;
+    height: 20px;
+}
+
+.syncopen {
+    height: auto;
+    margin-bottom: -15px;
+}
+
+.sub-item {
+    display: inline;
+    padding-top: 0;
+}
+
+.sync-data {
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 8px;
+    width: 170px;
+    height: 40px;
+    color: white;
+    font-size: 1.2em;
+    font-family: "Roboto-Medium", sans-serif;
+    margin-top: 50px;
+    cursor: pointer;
+}
+
+.set-password {
+    margin-top: -5px;
+    padding-bottom: 15px;
+}
+
+.set-password input {
+    margin-bottom: 5px;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 1em;
+}
+
+.save-password {
+    background: transparent;
+    color: white;
+    font-size: 1em;
+    font-family: "Roboto-Medium",sans-serif;
+    border: 2px solid white;
+    border-radius: 12px;
+    width: 100px;
+    float: right;
+    margin-top: 5px;
+    margin-right: 5%;
+}
+
+.saveChanges {
+    border-bottom: none;
+    margin-top: -5px;
+}
+
+.closeEncounter {
+    cursor: pointer;
+}
+
+/*** tasks.html ***/
+#tasks div.task {
+    display: inline-block;
+    position: relative;
+    padding: 8px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    min-height: 72px;
+    text-align: left;
+    border-radius: 18px;
+    color: #FFF;
+}
+
+#tasks div.task:active {
+    background-color: #cccccc;
+}
+
+#tasks p.message {
+    font-family: "Roboto-Regular",sans-serif;
+    font-size: 24px;
+    text-align: center;
+}
+
+#tasks img.icon {
+    float: left;
+    display: inline-block;
+    width: 72px;
+    height: 72px;
+    background-size: 72px 72px;
+    border-radius: 12px;
+    vertical-align: middle;
+}
+
+#tasks div.task > span.description {
+    display: block;
+    position: absolute;
+    font-size: 1em;
+    margin-left: 5px;
+    white-space: normal;
+    max-width: 11ch;
+}
+
+#tasks div.task > span.scoringMessage {
+    font-size: 12px;
+    font-style: italic;
+    top: 64px;
+    left: 99px;
+    vertical-align: top;
+}
+
+#tasks div.task > span.alternateForm {
+    position: relative;
+    float: left;
+    display: inline-block;
+    margin-left: 12px;
+    border: 1px solid black;
+    font-size: 36px;
+    text-align: center;
+    vertical-align: middle;
+    width: 65px;
+    height: 65px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+#tasks div.task div.scores {
+    position: relative;
+    clear: both;
+    margin-top: 10px;
+    padding-left: 92px;
+    margin-bottom: -10px;
+    border-top: 1px solid #000000;
+}
+
+#tasks div.task div.scores div.score {
+    font-style: normal;
+}
+
+#tasks div.task div.scores div.score .scoreHeader {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#tasks div.task div.scores div.score .scoreBody {
+    margin: 10px;
+}
+
+#tasks div.task div.scores div.score .scoreBody div.rawScore {
+    display: inline-block;
+    clear: none;
+    vertical-align: top;
+    text-align: center;
+}
+
+#tasks div.task div.scores div.score .scoreBody div.rawScore .description {
+    font-size: 10px;
+    margin: 4px;
+}
+
+#tasks div.task div.scores div.score .scoreBody div.rawScore .value {
+    font-size: 60px;
+    margin: 4px;
+}
+
+#tasks div.task div.scores div.score .scoreBody div.norms {
+    display: inline-block;
+    clear: none;
+    margin-left: 10px;
+}
+
+#tasks div.task div.scores div.score .scoreBody div.norms table {
+    border-spacing: 0px;
+}
+
+#tasks div.task div.scores div.score .scoreBody div.norms th {
+    font-weight: normal;
+    font-size: 10px;
+    text-align: center;
+    padding: 4px;
+}
+
+#tasks div.task div.scores div.score .scoreBody div.norms td {
+    font-weight: normal;
+    font-size: 15px;
+    text-align: center;
+    padding: 2px 8px 2px 8px;
+}
+
+#tasks div.task div.scores div.score .scoreFooter {
+    margin-top: 10px;
+    font-size: 10px;
+}
+
+#tasks div.battery {
+    width: 350px;
+    color: white;
+    margin-left: 8px;
+    margin-bottom: 35px;
+    padding-right: 50px;
+    padding-left: 50px;
+    border-radius: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+}
+
+#tasks div.battery div.header {
+    font-size: 1.2em;
+    width: 200px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+}
+
+#tasks div.battery .collapsed {
+    display: none;
+}
+
+#tasks button {
+    /*font-size: 24px;*/
+    border-radius: 10px;
+    border-width: 5px;
+    margin-top: 50px;
+}
+
+#tasks #taskList {
+    margin-top: 25px;
+}
+
+.task-encounter-button {
+    text-align: center;
+}
+
+.task-message {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/*** enter-password.html ***/
+#enterPassword {
+    text-align: center;
+    padding-top: 3%;
+}
+
+.continue {
+    width: 185px;
+}
+
+#howToLogout {
+    color: #A6CFD7;
+    font-size: 1.6em;
+}
+
+.test-buttons {
+    width: 65px;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #383E5E;
+}
+
+/*** administration-notes.html ***/
+#administrationNotesForm {
+    font-size: 24px;
+}
+
+#administrationNotesForm fieldset {
+    margin-top: 20px;
+    padding: 5px;
+    border: none;
+}
+
+#administrationNotesForm fieldset div.threeColumns {
+    column-count: 3;
+    column-width: 150px;
+    column-gap: 50px;
+    -moz-column-count: 3;
+    -moz-column-width: 150px;
+    -moz-column-gap: 50px;
+    -webkit-column-count: 3;
+    -webkit-column-width: 150px;
+    -webkit-column-gap: 50px;
+}
+
+#administrationNotesForm legend {
+    font-size: 28px;
+    font-family: "Roboto-Medium", sans-serif;
+    color: white;
+}
+
+#administrationNotesForm fieldset.required legend:after {
+    content: '*';
+}
+
+#administrationNotesForm div.threeColumns label {
+    display: block;
+}
+
+#administrationNotesForm textarea {
+    width: 750px;
+    max-width: 750px;
+    height: 150px;
+    max-height: 150px;
+    font-size: 18px;
+}
+
+#administrationNotesForm p {
+    text-align: center;
+}
+
+#administrationNotesForm button {
+    font-size: 24px;
+    height: 60px;
+    border-radius: 10px;
+    border-width: 5px;
+    margin: 0;
+}
+
+/*--Return to Examiner--*/
+/*---------------------*/
+.caption {
+    color: #A6CFD7;
+    font-family: "Roboto", sans-serif;
+    font-size: 5em;
+    text-align: center;
+    margin-top: 20%;
+}
+
+#iAmTheExaminer {
+    float: right;
+    width: 200px;
+    height: 100px;
+    background-color: transparent;
+    color: white;
+    font-size: 18px;
+    border: 2px solid white;
+    border-radius: 26px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+/*** patient-scoring.html ***/
+/* attempts to look similar to tasks.html */
+#patientScoring {
+    margin-top: 25px;
+}
+
+#patientScoring div.encounter {
+    background-color: #eeeeee;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    padding: 15px;
+    width: 670px;
+    text-align: left;
+    border-radius: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#patientScoring div.encounter .encounterHeader {
+    color: #000000;
+    font-size: 24px;
+    margin: 0px;
+}
+
+#patientScoring div.encounter .encounterHeader .encounterNum {
+    font-size: 36px;
+}
+
+#patientScoring div.encounter .encounterHeader .date {
+    font-size: 18px;
+    float: right;
+}
+
+#patientScoring div.task {
+    background-color: #000000;
+    padding: 15px;
+    margin-top: 10px;
+    margin-right: 0px;
+    width: 640px;
+    text-align: left;
+    border-radius: 14px;
+}
+
+#patientScoring div.task img.icon {
+    width: 65px;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #383E5E;
+}
+
+#patientScoring div.task .taskHeader {
+    color: #eeeeee;
+    font-size: 24px;
+    height: 36px;
+}
+
+#patientScoring div.task .taskHeader .description {
+    vertical-align: middle;
+}
+
+#patientScoring div.task div.scores {
+    margin-top: 15px;
+    font-size: 12px;
+    font-style: italic;
+}
+
+#patientScoring div.task div.score {
+    border-top: 1px solid #eeeeee;
+    padding: 5px;
+    font-style: normal;
+}
+
+#patientScoring div.task div.score .scoreHeader {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#patientScoring div.task div.score .scoreBody {
+    margin: 10px;
+}
+
+#patientScoring div.task div.score .scoreBody div.rawScore {
+    display: inline-block;
+    clear: none;
+    vertical-align: top;
+    text-align: center;
+}
+
+#patientScoring div.task div.score .scoreBody div.rawScore .description {
+    font-size: 10px;
+    margin: 4px;
+}
+
+#patientScoring div.task div.score .scoreBody div.rawScore .value {
+    font-size: 60px;
+    margin: 4px;
+}
+
+div.score .scoreBody div.catchTrialScore {
+    display: inline-block;
+    clear: none;
+    vertical-align: top;
+    text-align: center;
+}
+
+div.score .scoreBody div.catchTrialScore .description {
+    font-size: 10px;
+    margin: 4px;
+}
+
+div.score .scoreBody div.catchTrialScore .value {
+    font-weight: normal;
+    font-size: 15px;
+    margin: 4px;
+    padding: 2px 8px 2px 8px;
+}
+
+#patientScoring div.task div.score .scoreBody div.norms {
+    display: inline-block;
+    clear: none;
+    margin-left: 10px;
+}
+
+#patientScoring div.task div.score .scoreBody div.norms table {
+    border-spacing: 0px;
+}
+
+#patientScoring div.task div.score .scoreBody div.norms th {
+    font-weight: normal;
+    font-size: 10px;
+    text-align: center;
+    padding: 4px;
+}
+
+#patientScoring div.task div.score .scoreBody div.norms td {
+    font-weight: normal;
+    font-size: 15px;
+    text-align: center;
+    padding: 2px 8px 2px 8px;
+}
+
+#patientScoring div.task div.score .scoreFooter {
+    margin-top: 10px;
+    font-size: 10px;
+}

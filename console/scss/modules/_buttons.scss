@@ -1,0 +1,72 @@
+$btn-name: 'button' !default;
+$btn-hover: lighten 10% !default;
+$btn-border:  darken 10% !default; // Set to false for no border
+$btn-size-ratio: 1.2 !default;
+$btn-schemes: (
+        default: #7f8c8d,
+        success: #27ae60,
+        danger:  #c0392b,
+        warning: #f1c40f,
+        info:    #2980b9
+) !default;
+
+
+
+// Default class
+// 1. Border or not border?
+// 2. Large modifier
+// 3. Small modifier
+// 4. Bold modifier
+// 5. Block modifier
+// 6. Uppercase modifier
+// 7. Color themes modifier
+.#{$btn-name} {
+  // Default styles
+  padding: .5em;
+  margin-bottom: 1em;
+  color: #fff;
+  transition: background .15s;
+  box-shadow: inset 0 1px rgba(255, 255, 255, .2);
+  border-radius: .15em;
+  border: if($btn-border != false, 1px solid, none); // 1
+
+  // Modifiers
+  &--large { // 2
+    font-size: 1em * $btn-size-ratio;
+  }
+
+  &--small { // 3
+    font-size: 1em / $btn-size-ratio;
+  }
+
+  &--bold { // 4
+    font-weight: bold;
+  }
+
+  &--block { // 5
+    display: block;
+    width: 100%;
+  }
+
+  &--upper { // 6
+    text-transform: uppercase;
+  }
+
+  @each $key, $value in $btn-schemes { // 7
+    &--#{$key} {
+      @include button-color($value);
+    }
+  }
+}
+
+
+.btn-label{
+  position:relative;
+  left:-10px;
+  padding-top: 0.58rem;
+  padding-right: 0.8rem;
+  padding-bottom: 0.62rem;
+  padding-left: 0.8rem;
+  background:rgba(0,0,0,0.15);
+  border-radius:3px 0 0 3px
+}

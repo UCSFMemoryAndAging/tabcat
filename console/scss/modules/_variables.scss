@@ -1,0 +1,131 @@
+//Base Color Scheme
+//------------------------------------------------------
+
+$indigo:                 #122147 !default;
+$indigo-light:           #5D5D79 !default;
+$indigo-dark:            #000824 !default;
+$indigo-medium:          #383E5E !default;
+
+$light-blue:             #A6CFD7 !default;
+$light-blue-dark:        #6E9CAA !default;
+$light-blue-light:       #B8D7DE !default;
+
+$orange:                 #EDBD82 !default;
+$orange-dark:            #D7A66C !default;
+$orange-light:           #F0C898 !default;
+$orange-medium:          #E5A024 !default;
+
+$red:                    #D2605A !default;
+$red-dark:               #B84642 !default;
+$red-light:              #D97D72 !default;
+
+$green:                  #61A255 !default;
+$green-dark:             #357643 !default;
+$green-light:            #9AC08F !default;
+
+$white:                  #FFFFFF !default;
+$grey:                   #BCBEC0 !default;
+$light-grey:             #E6E7E8 !default;
+
+
+//Base project variables
+//------------------------------------------------------
+
+$photographs-border-size:             3px !default;
+$photographs-border-radius:           20px !default;
+
+$form-field-height:                   100px !default;
+$form-field-active-border:            2px !default;
+$form-field-active-color:             #00AEEF !default;
+
+$banner-color:                        $indigo-medium;
+$background-base:                     $indigo;
+
+
+
+//Buttons
+//-----------------------------------------------------
+
+$nav-button-border-radius:            18px !default;
+$nav-button-height:                   100px !default;
+$nav-button-width:                    100px !default;
+
+$test-button-border-radius:           36px !default;
+$test-button-height:                  200px !default;
+$test-button-width:                   200px !default;
+
+$response-button-border-radius:       36px !default;
+$response-button-width:               620px !default;
+$response-button-height:              156px !default;
+$response-icon-width:                 156px !default;
+
+
+
+
+
+// Button Configuration
+$btn-name:  'button' !default;
+$btn-size-ratio: 1.2 !default;
+$btn-hover:  saturate 25% !default;
+$btn-border: darken   20% !default;
+$btn-background: (
+        'default': #565656,
+        'success': #468847,
+        'danger':  #b94a48,
+        'warning': #c09853,
+        'info':    #3a87ad
+) !default;
+//Fonts
+//-------------------------------------------------------
+
+$font-title:                          "Roboto-Regular", sans-serif !default;
+$font-title-size:                     120px !default;
+
+$font-heading:                        "Roboto-Regular", sans-serif !default;
+$font-heading-size:                   120px !default;
+
+$font-instructions:                   "Roboto-Light", sans-serif !default;
+$font-instructions-size:              70px !default;
+
+$font-main:                           "Roboto-Light" sans-serif !default;
+$font-main:                           70px !default;
+
+$font-questions:                      "Roboto-Medium" sans-serif !default;
+
+$font-focal:                          "Roboto-Medium" sans-serif !default;
+
+$font-button:                         "Roboto-Medium" sans-serif !default;
+$font-button-size:                    3.375em !default;
+
+$font-footnotes:                      "Roboto-Regular" sans-serif !default;
+
+$font-icon-label:                     "Roboto-Regular" sans-serif !default;
+
+$font-nav-button:                     "Roboto-Medium"  sans-serif !default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

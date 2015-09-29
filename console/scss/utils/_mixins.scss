@@ -1,0 +1,48 @@
+// Color helper 
+// 1. Background-color
+// 2. On hover
+// 3. Border-color
+@mixin button-color($color) {
+  $everything-okay: true;
+
+  // Making sure $color is a color
+  @if type-of($color) != color {
+    @warn "`#{$color}` is not a color for `button-color`";
+    $everything-okay: false;
+  }
+
+  // Making sure $btn-hover and $btn-border are 2 items long
+  @if length($btn-hover) != 2 
+   or length($btn-border) != 2 {
+    @warn "Both `$btn-hover` and `$btn-border` should be two items long for `button-color`.";
+    $everything-okay: false;
+  }
+
+  // Making sure first items from $btn-hover and $btn-border are valid functions
+  @if not function-exists(nth($btn-hover, 1)) 
+   or not function-exists(nth($btn-border, 1)) {
+    @warn "Either `#{nth($btn-hover, 1)}` or `#{nth($btn-border, 1)}` is not a valid function for `button-color`.";
+    $everything-okay: false;
+  }
+
+  // Making sure second items from $btn-hover and $btn-border are percentages
+  @if type-of(nth($btn-hover, 2)) != number 
+   or type-of(nth($btn-border, 2)) != number {
+    @warn "Either `#{nth($btn-hover, 2)}` or `#{nth($btn-border, 2)}` is not a valid percentage for `button-color`.";
+    $everything-okay: false;
+  }
+
+  // If there is no mistake
+  @if $everything-okay == true {
+    background-color: $color; // 1
+
+    &:hover,
+    &:active { // 2
+      background: call(nth($btn-hover, 1), $color, nth($btn-hover, 2));
+    }
+
+    @if $btn-border != false { // 3
+      border-color: call(nth($btn-border, 1), $color, nth($btn-border, 2));
+    }
+  }
+}

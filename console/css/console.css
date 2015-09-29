@@ -123,10 +123,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 /* currently only used by login page */
-.blueBackground.sandbox {
-    background-color: #cc9933;
-    background-image: url('../img/sandbox/sand.png');
-}
+/*.blueBackground.sandbox {*/
+    /*background-color: #cc9933;*/
+    /*background-image: url('../img/sandbox/sand.png');*/
+/*}*/
 
 /* messages */
 
@@ -341,19 +341,19 @@ form.big button[type=submit] {
     height: 27px;
 }
 
-#loginForm button {
-    height: 11px;
-    font-size: 15px;
-    border-radius: 4px;
-}
+/*#loginForm button {*/
+    /*height: 11px;*/
+    /*font-size: 15px;*/
+    /*border-radius: 4px;*/
+/*}*/
 
-#loginForm button[type=submit] {
-    font-size: 20px;
-    height: 40px;
-    border-radius: 8px;
-    border-width: 3px;
-    margin: 4px;
-}
+/*#loginForm button[type=submit] {*/
+    /*font-size: 20px;*/
+    /*height: 40px;*/
+    /*border-radius: 8px;*/
+    /*border-width: 3px;*/
+    /*margin: 4px;*/
+/*}*/
 
 
 
